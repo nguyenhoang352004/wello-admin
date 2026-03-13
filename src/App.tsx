@@ -1,4 +1,4 @@
-import AdminLoginPage from './pages/AdminLoginPage'
+import AdminLoginPage from './pages/Login/AdminLoginPage'
 
 function App() {
   return <AdminLoginPage />

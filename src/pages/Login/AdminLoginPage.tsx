@@ -1,5 +1,5 @@
 import './AdminLoginPage.css'
-import loginHealthGif from '../assets/img/download.gif'
+import loginHealthGif from '../../assets/img/download.gif'
 
 function AdminLoginPage() {
   return (
