@@ -12,7 +12,7 @@ function MainPage() {
         <div className="sidebar-brand">
           <div className="brand-icon">🥗</div>
           <div>
-            <span className="sidebar-title">Wello Admin</span>
+            <span className="sidebar-title">Wello</span>
             <span className="sidebar-subtitle">Hệ thống quản trị</span>
           </div>
         </div>
