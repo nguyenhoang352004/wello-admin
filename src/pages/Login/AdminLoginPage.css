@@ -46,41 +46,9 @@
   z-index: 1;
   width: min(1060px, 100%);
   margin: 0 auto;
-}
-
-.hero-head {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  margin-bottom: 1rem;
-}
-
-.eyebrow {
-  margin: 0;
-  display: inline-block;
-  width: fit-content;
-  padding: 0.32rem 0.82rem;
-  border-radius: 999px;
-  background: rgba(47, 143, 132, 0.12);
-  color: var(--mint-500);
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.hero-head h1 {
-  margin: 0.45rem 0 0;
-  font-size: clamp(1.3rem, 2.7vw, 1.95rem);
-  color: #123142;
-  font-weight: 800;
-  letter-spacing: 0.02em;
-  text-shadow: 0 2px 8px rgba(18, 49, 66, 0.16);
-  display: inline-block;
-  padding: 0.2rem 0.9rem 0.05rem;
-  border-radius: 14px;
-  background: linear-gradient(120deg, rgba(255, 255, 255, 0.72), rgba(244, 186, 100, 0.32));
+  min-height: calc(100vh - 4rem);
+  display: grid;
+  align-content: center;
 }
 
 .hero-body {
@@ -92,6 +60,21 @@
   background: linear-gradient(120deg, rgba(255, 255, 255, 0.93), rgba(255, 255, 255, 0.82));
   box-shadow: 0 24px 64px rgba(47, 69, 75, 0.18);
   padding: 2rem;
+}
+
+@media (max-width: 960px) {
+  .login-page {
+    padding: 1.5rem 0.85rem;
+  }
+
+  .admin-shell {
+    min-height: auto;
+  }
+
+  .hero-body {
+    grid-template-columns: 1fr;
+    padding: 1.5rem;
+  }
 }
 
 .brand-panel {

@@ -17,11 +17,6 @@ function AdminLoginPage() {
       <div className="ambient ambient-2" aria-hidden="true" />
 
       <section className="admin-shell" aria-label="Admin login">
-        <div className="hero-head">
-          <p className="eyebrow">Wello Admin</p>
-          <h1>Đăng nhập</h1>
-        </div>
-
         <article className="hero-body">
           <aside className="brand-panel">
             <h2>Nền tảng hỗ trợ và phân tích sức khỏe người dùng</h2>
