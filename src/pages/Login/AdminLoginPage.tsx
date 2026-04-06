@@ -1,7 +1,16 @@
+import type { FormEvent } from 'react'
+import { useNavigate } from 'react-router-dom'
 import './AdminLoginPage.css'
 import loginHealthGif from '../../assets/img/download.gif'
 
 function AdminLoginPage() {
+  const navigate = useNavigate()
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    navigate('/home')
+  }
+
   return (
     <main className="login-page">
       <div className="ambient ambient-1" aria-hidden="true" />
@@ -36,7 +45,7 @@ function AdminLoginPage() {
             <div className="login-center">
               <p className="panel-subtitle">Sử dụng tài khoản được cấp để truy cập hệ thống.</p>
 
-              <form className="login-form">
+              <form className="login-form" onSubmit={handleSubmit}>
                 <label htmlFor="email">Email</label>
                 <input id="email" type="email" placeholder="admin@wello.vn" autoComplete="email" />
 
@@ -53,7 +62,7 @@ function AdminLoginPage() {
                   <span>Duy trì đăng nhập</span>
                 </label>
 
-                <button type="button">Đăng nhập</button>
+                <button type="submit">Đăng nhập</button>
 
                 <a href="#" className="help-link">
                   Quên mật khẩu?
