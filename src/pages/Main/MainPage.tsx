@@ -3,7 +3,23 @@ import './MainPage.css'
 
 function MainPage() {
   const { pathname } = useLocation()
-  const isFoodPage = pathname.startsWith('/home/food')
+  const isDashboard = pathname.endsWith('/dashboard') || pathname.endsWith('/home')
+  const isFoodPage = pathname.includes('/food')
+  const isUserPage = pathname.includes('/users')
+
+  const getPageTitle = () => {
+    if (isDashboard) return 'Tổng quan hệ thống'
+    if (isFoodPage) return 'Quản lí thực phẩm'
+    if (isUserPage) return 'Quản lý người dùng'
+    return 'Wello Admin'
+  }
+
+  const getBreadcrumb = () => {
+    if (isDashboard) return 'Tổng quan'
+    if (isFoodPage) return 'Thực phẩm'
+    if (isUserPage) return 'Người dùng'
+    return ''
+  }
 
   return (
     <div className="main-page">
@@ -20,16 +36,37 @@ function MainPage() {
         <div className="sidebar-divider" />
 
         <nav>
-          <p className="menu-section-label">Quản lý</p>
+          <p className="menu-section-label">Hệ thống</p>
           <ul className="menu-list">
             <li>
-              <NavLink to="/home/food" className={({ isActive }) => `menu-item menu-link${isActive ? ' active' : ''}`}>
+              <NavLink
+                to="/home/dashboard"
+                className={({ isActive }) => `menu-item menu-link${isActive ? ' active' : ''}`}
+              >
+                <span className="menu-icon">📊</span>
+                Tổng quan
+              </NavLink>
+            </li>
+          </ul>
+
+          <p className="menu-section-label" style={{ marginTop: '1.2rem' }}>
+            Quản lý
+          </p>
+          <ul className="menu-list">
+            <li>
+              <NavLink
+                to="/home/food"
+                className={({ isActive }) => `menu-item menu-link${isActive ? ' active' : ''}`}
+              >
                 <span className="menu-icon">🥦</span>
                 Quản lí thực phẩm
               </NavLink>
             </li>
             <li>
-              <NavLink to="/home/users" className={({ isActive }) => `menu-item menu-link${isActive ? ' active' : ''}`}>
+              <NavLink
+                to="/home/users"
+                className={({ isActive }) => `menu-item menu-link${isActive ? ' active' : ''}`}
+              >
                 <span className="menu-icon">👥</span>
                 Quản lí người dùng
               </NavLink>
@@ -53,52 +90,18 @@ function MainPage() {
         {/* Topbar */}
         <header className="topbar">
           <div>
-            <h1 className="topbar-title">
-              {isFoodPage ? 'Quản lí thực phẩm' : 'Quản lí người dùng'}
-            </h1>
-            <p className="topbar-breadcrumb">
-              Wello Admin › {isFoodPage ? 'Thực phẩm' : 'Người dùng'}
-            </p>
+            <h1 className="topbar-title">{getPageTitle()}</h1>
+            <p className="topbar-breadcrumb">Wello Admin › {getBreadcrumb()}</p>
           </div>
           <div className="topbar-actions">
-            <span className="notif-btn" role="button" aria-label="Thông báo">🔔</span>
+            <span className="notif-btn" role="button" aria-label="Thông báo">
+              🔔
+            </span>
           </div>
         </header>
 
         {/* Content */}
         <main className="main-content">
-          {/* Stats row */}
-          <div className="stats-grid">
-            <div className="stat-card stat-card--teal">
-              <div className="stat-icon">🥦</div>
-              <div>
-                <p className="stat-value">128</p>
-                <p className="stat-label">Tổng thực phẩm</p>
-              </div>
-            </div>
-            <div className="stat-card stat-card--blue">
-              <div className="stat-icon">👥</div>
-              <div>
-                <p className="stat-value">342</p>
-                <p className="stat-label">Tổng người dùng</p>
-              </div>
-            </div>
-            <div className="stat-card stat-card--green">
-              <div className="stat-icon">✅</div>
-              <div>
-                <p className="stat-value">56</p>
-                <p className="stat-label">Hoạt động hôm nay</p>
-              </div>
-            </div>
-            <div className="stat-card stat-card--orange">
-              <div className="stat-icon">⏳</div>
-              <div>
-                <p className="stat-value">12</p>
-                <p className="stat-label">Chờ phê duyệt</p>
-              </div>
-            </div>
-          </div>
-
           <Outlet />
         </main>
       </div>
