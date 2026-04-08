@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { authService } from '../../api/authService'
+import { authService } from '../../core/api/authService'
 import './AdminLoginPage.css'
 import loginHealthGif from '../../assets/img/download.gif'
 

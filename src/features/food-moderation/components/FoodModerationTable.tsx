@@ -27,36 +27,36 @@ function FoodModerationTable({ items, onUpdateStatus }: FoodModerationTableProps
           {items.map((item) => (
             <tr key={item.id}>
               <td>
-                <p className="food-name">{item.name}</p>
-                <p className="food-note">{item.note}</p>
+                <p className="food-name">{item?.foodName || 'Không rõ tên'}</p>
+                <p className="food-note">{item?.adminNote || 'Không có ghi chú'}</p>
               </td>
-              <td className="col-center">{item.serving}</td>
-              <td className="col-center">{item.calories}</td>
-              <td className="col-center">{item.protein}g</td>
-              <td className="col-center">{item.carbs}g</td>
-              <td className="col-center">{item.fat}g</td>
-              <td>@{item.submittedBy}</td>
+              <td className="col-center">{`${item?.servingSize || 0} ${item?.servingUnit || ''}`}</td>
+              <td className="col-center">{item?.calories || 0}</td>
+              <td className="col-center">{item?.protein || 0}g</td>
+              <td className="col-center">{item?.carbs || 0}g</td>
+              <td className="col-center">{item?.fat || 0}g</td>
+              <td>{item?.requester?.email || 'N/A'}</td>
               <td>
-                <span className={`status-pill status-pill--${item.status}`}>
-                  {statusLabel(item.status)}
+                <span className={`status-pill status-pill--${item?.status?.toLowerCase() || 'pending'}`}>
+                  {statusLabel(item?.status || 'PENDING')}
                 </span>
               </td>
               <td>
                 <div className="action-group">
                   <button
                     type="button"
-                    onClick={() => onUpdateStatus(item.id, 'approved')}
+                    onClick={() => onUpdateStatus(item.id, 'APPROVED')}
                     className="action-btn action-btn--approve"
-                    disabled={item.status !== 'pending'}
+                    disabled={item.status !== 'PENDING'}
                   >
                     <span className="action-btn__icon">✓</span>
                     <span>Duyệt</span>
                   </button>
                   <button
                     type="button"
-                    onClick={() => onUpdateStatus(item.id, 'rejected')}
+                    onClick={() => onUpdateStatus(item.id, 'REJECTED')}
                     className="action-btn action-btn--reject"
-                    disabled={item.status !== 'pending'}
+                    disabled={item.status !== 'PENDING'}
                   >
                     <span className="action-btn__icon">✕</span>
                     <span>Từ chối</span>

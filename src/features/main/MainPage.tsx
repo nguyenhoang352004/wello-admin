@@ -5,11 +5,13 @@ function MainPage() {
   const { pathname } = useLocation()
   const isDashboard = pathname.endsWith('/dashboard') || pathname.endsWith('/home')
   const isFoodPage = pathname.includes('/food')
+  const isWorkoutPage = pathname.includes('/workout')
   const isUserPage = pathname.includes('/users')
 
   const getPageTitle = () => {
     if (isDashboard) return 'Tổng quan hệ thống'
-    if (isFoodPage) return 'Quản lí thực phẩm'
+    if (isFoodPage) return 'Kiểm duyệt thực phẩm'
+    if (isWorkoutPage) return 'Kiểm duyệt bài tập'
     if (isUserPage) return 'Quản lý người dùng'
     return 'Wello Admin'
   }
@@ -17,6 +19,7 @@ function MainPage() {
   const getBreadcrumb = () => {
     if (isDashboard) return 'Tổng quan'
     if (isFoodPage) return 'Thực phẩm'
+    if (isWorkoutPage) return 'Bài tập'
     if (isUserPage) return 'Người dùng'
     return ''
   }
@@ -59,7 +62,16 @@ function MainPage() {
                 className={({ isActive }) => `menu-item menu-link${isActive ? ' active' : ''}`}
               >
                 <span className="menu-icon">🥦</span>
-                Quản lí thực phẩm
+                Kiểm duyệt thực phẩm
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/home/workout"
+                className={({ isActive }) => `menu-item menu-link${isActive ? ' active' : ''}`}
+              >
+                <span className="menu-icon">🏃</span>
+                Kiểm duyệt bài tập
               </NavLink>
             </li>
             <li>

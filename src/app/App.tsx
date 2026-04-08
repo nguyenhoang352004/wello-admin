@@ -1,9 +1,10 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
-import AdminLoginPage from './pages/Login/AdminLoginPage'
-import MainPage from './pages/Main/MainPage'
-import DashboardPage from './pages/Dashboard/DashboardPage'
-import FoodModerationPage from './pages/FoodModeration/FoodModerationPage'
-import UserSegmentationPage from './pages/UserSegmentation/UserSegmentationPage'
+import { AdminLoginPage } from '../features/auth'
+import { MainPage } from '../features/main'
+import { DashboardPage } from '../features/dashboard'
+import { FoodModerationPage } from '../features/food-moderation'
+import { WorkoutModerationPage } from '../features/workout-moderation'
+import { UserSegmentationPage } from '../features/user-segmentation'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route index element={<Navigate to="dashboard" replace />} />
         <Route path="dashboard" element={<DashboardPage />} />
         <Route path="food" element={<FoodModerationPage />} />
+        <Route path="workout" element={<WorkoutModerationPage />} />
         <Route path="users" element={<UserSegmentationPage />} />
       </Route>
       <Route path="*" element={<Navigate to="/login" replace />} />
