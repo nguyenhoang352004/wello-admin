@@ -24,9 +24,9 @@ function ModerationToolbar({ keyword, filter, onKeywordChange, onFilterChange }:
           className="moderation-filter"
         >
           <option value="all">Tất cả trạng thái</option>
-          <option value="pending">Chờ duyệt</option>
-          <option value="approved">Đã duyệt</option>
-          <option value="rejected">Từ chối</option>
+          <option value="PENDING">Chờ duyệt</option>
+          <option value="APPROVED">Đã duyệt</option>
+          <option value="REJECTED">Từ chối</option>
         </select>
         <span className="moderation-filter-caret" aria-hidden="true" />
       </div>

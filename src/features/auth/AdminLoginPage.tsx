@@ -1,14 +1,33 @@
-import type { FormEvent } from 'react'
+import { useState, type FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { authService } from '../../core/api/authService'
 import './AdminLoginPage.css'
 import loginHealthGif from '../../assets/img/download.gif'
 
 function AdminLoginPage() {
   const navigate = useNavigate()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    navigate('/home')
+    setLoading(true)
+    setError(null)
+
+    try {
+      const response = await authService.login(email, password)
+      if (response.success) {
+        navigate('/home')
+      } else {
+        setError(response.message || 'Email hoặc mật khẩu không đúng')
+      }
+    } catch (err: any) {
+      setError(err.response?.data?.message || 'Không thể kết nối đến máy chủ. Vui lòng thử lại sau.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -19,7 +38,10 @@ function AdminLoginPage() {
       <section className="admin-shell" aria-label="Admin login">
         <article className="hero-body">
           <aside className="brand-panel">
+
+
             <h2>Nền tảng hỗ trợ và phân tích sức khỏe người dùng</h2>
+
             <p className="brand-copy">
               Theo dõi dữ liệu quan trọng, phát hiện bất thường và quản lý tài khoản.
             </p>
@@ -41,8 +63,18 @@ function AdminLoginPage() {
               <p className="panel-subtitle">Sử dụng tài khoản được cấp để truy cập hệ thống.</p>
 
               <form className="login-form" onSubmit={handleSubmit}>
+                {error && <div className="error-banner">{error}</div>}
+
                 <label htmlFor="email">Email</label>
-                <input id="email" type="email" placeholder="admin@wello.vn" autoComplete="email" />
+                <input
+                  id="email"
+                  type="email"
+                  placeholder="admin@wello.vn"
+                  autoComplete="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
 
                 <label htmlFor="password">Mật khẩu</label>
                 <input
@@ -50,6 +82,9 @@ function AdminLoginPage() {
                   type="password"
                   placeholder="Nhập mật khẩu"
                   autoComplete="current-password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
                 />
 
                 <label className="remember-row" htmlFor="rememberMe">
@@ -57,7 +92,9 @@ function AdminLoginPage() {
                   <span>Duy trì đăng nhập</span>
                 </label>
 
-                <button type="submit">Đăng nhập</button>
+                <button type="submit" disabled={loading}>
+                  {loading ? 'Đang đăng nhập...' : 'Đăng nhập'}
+                </button>
 
                 <a href="#" className="help-link">
                   Quên mật khẩu?
@@ -72,3 +109,4 @@ function AdminLoginPage() {
 }
 
 export default AdminLoginPage
+
