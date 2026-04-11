@@ -45,7 +45,7 @@ function WorkoutModerationPage() {
 
     return (items || []).filter((item) => {
       const matchedKeyword =
-        (item?.workoutName?.toLowerCase() || '').includes(keywordMatch) ||
+        (item?.exerciseName?.toLowerCase() || '').includes(keywordMatch) ||
         (item?.requester?.email?.toLowerCase() || '').includes(keywordMatch)
 
       if (filter === 'all') {
