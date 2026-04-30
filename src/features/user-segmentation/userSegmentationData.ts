@@ -18,22 +18,22 @@ export const getUserState = (days: number): UserState => {
 }
 
 export const stateTitle: Record<UserState, string> = {
-  active: 'Active',
-  'at-risk': 'At-risk',
-  lapsed: 'Lapsed / Fading',
-  churned: 'Churned',
+  active: 'Đang duy trì tốt',
+  'at-risk': 'Sắp mất nhịp',
+  lapsed: 'Cần quay lại',
+  churned: 'Đã bỏ cuộc',
 }
 
 export const stateAction: Record<UserState, string> = {
-  active: 'Khen + tặng huy hiệu Streak',
+  active: 'Khen ngợi & Tặng huy hiệu',
   'at-risk': 'Nhắc nhở nhẹ nhàng',
-  lapsed: 'Gửi mẹo sức khỏe mới',
-  churned: 'Email khảo sát + tặng lộ trình tập',
+  lapsed: 'Gửi mẹo truyền cảm hứng',
+  churned: 'Khảo sát & Tặng lộ trình',
 }
 
 export const stateActionButtonLabel: Record<UserState, string> = {
-  active: 'Tặng huy hiệu',
+  active: 'Gửi huy hiệu',
   'at-risk': 'Gửi nhắc nhở',
-  lapsed: 'Gửi mẹo mới',
+  lapsed: 'Gửi lời khuyên',
   churned: 'Gửi khảo sát',
 }

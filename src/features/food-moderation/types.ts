@@ -3,6 +3,11 @@ export type ReviewStatus = 'PENDING' | 'APPROVED' | 'REJECTED'
 export interface Requester {
   idUser: number
   email: string
+  role: string
+  createdAt: string
+  lastActivityAt: string
+  googleId: string | null
+  authProvider: string
 }
 
 export interface FoodContribution {
@@ -22,13 +27,11 @@ export interface FoodContribution {
 
 export interface WorkoutContribution {
   id: number
-  workoutName: string
-  caloriesBurned: number
-  duration: number
-  intensity: string
+  exerciseName: string
+  metValue: number
   status: ReviewStatus
   requester: Requester
-  createdAt: string
+  createdAt: string | null
   adminNote: string | null
 }
 

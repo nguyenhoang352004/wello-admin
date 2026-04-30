@@ -1,25 +1,15 @@
-import type { SegmentTab, UserItem, UserState } from '../types'
+import type { UserState } from '../types'
 
 type SegmentTabsProps = {
-  activeTab: SegmentTab
-  onChange: (tab: SegmentTab) => void
-  grouped: Record<UserState, UserItem[]>
-  totalCount: number
+  activeTab: UserState
+  onChange: (tab: UserState) => void
+  stats: Record<UserState, number>
   stateTitle: Record<UserState, string>
 }
 
-function SegmentTabs({ activeTab, onChange, grouped, totalCount, stateTitle }: SegmentTabsProps) {
+function SegmentTabs({ activeTab, onChange, stats, stateTitle }: SegmentTabsProps) {
   return (
     <div className="segment-tabs" role="tablist" aria-label="Loc theo trang thai">
-      <button
-        type="button"
-        role="tab"
-        aria-selected={activeTab === 'all'}
-        className={`segment-tab ${activeTab === 'all' ? 'segment-tab--active' : ''}`}
-        onClick={() => onChange('all')}
-      >
-        Tất cả ({totalCount})
-      </button>
       <button
         type="button"
         role="tab"
@@ -27,7 +17,7 @@ function SegmentTabs({ activeTab, onChange, grouped, totalCount, stateTitle }: S
         className={`segment-tab ${activeTab === 'active' ? 'segment-tab--active' : ''}`}
         onClick={() => onChange('active')}
       >
-        {stateTitle.active} ({grouped.active.length})
+        {stateTitle.active} ({stats.active})
       </button>
       <button
         type="button"
@@ -36,7 +26,7 @@ function SegmentTabs({ activeTab, onChange, grouped, totalCount, stateTitle }: S
         className={`segment-tab ${activeTab === 'at-risk' ? 'segment-tab--active' : ''}`}
         onClick={() => onChange('at-risk')}
       >
-        {stateTitle['at-risk']} ({grouped['at-risk'].length})
+        {stateTitle['at-risk']} ({stats['at-risk']})
       </button>
       <button
         type="button"
@@ -45,7 +35,7 @@ function SegmentTabs({ activeTab, onChange, grouped, totalCount, stateTitle }: S
         className={`segment-tab ${activeTab === 'lapsed' ? 'segment-tab--active' : ''}`}
         onClick={() => onChange('lapsed')}
       >
-        {stateTitle.lapsed} ({grouped.lapsed.length})
+        {stateTitle.lapsed} ({stats.lapsed})
       </button>
       <button
         type="button"
@@ -54,7 +44,7 @@ function SegmentTabs({ activeTab, onChange, grouped, totalCount, stateTitle }: S
         className={`segment-tab ${activeTab === 'churned' ? 'segment-tab--active' : ''}`}
         onClick={() => onChange('churned')}
       >
-        {stateTitle.churned} ({grouped.churned.length})
+        {stateTitle.churned} ({stats.churned})
       </button>
     </div>
   )
