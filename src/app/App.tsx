@@ -5,6 +5,7 @@ import { DashboardPage } from '../features/dashboard'
 import { FoodModerationPage } from '../features/food-moderation'
 import { WorkoutModerationPage } from '../features/workout-moderation'
 import { UserSegmentationPage } from '../features/user-segmentation'
+import { BadgeManagementPage } from '../features/badges'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="food" element={<FoodModerationPage />} />
         <Route path="workout" element={<WorkoutModerationPage />} />
         <Route path="users" element={<UserSegmentationPage />} />
+        <Route path="badges" element={<BadgeManagementPage />} />
       </Route>
       <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>

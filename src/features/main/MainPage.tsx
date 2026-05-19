@@ -7,12 +7,14 @@ function MainPage() {
   const isFoodPage = pathname.includes('/food')
   const isWorkoutPage = pathname.includes('/workout')
   const isUserPage = pathname.includes('/users')
+  const isBadgesPage = pathname.includes('/badges')
 
   const getPageTitle = () => {
     if (isDashboard) return 'Tổng quan hệ thống'
     if (isFoodPage) return 'Kiểm duyệt thực phẩm'
     if (isWorkoutPage) return 'Kiểm duyệt bài tập'
     if (isUserPage) return 'Quản lý người dùng'
+    if (isBadgesPage) return 'Quản lý huy hiệu'
     return 'Wello Admin'
   }
 
@@ -21,6 +23,7 @@ function MainPage() {
     if (isFoodPage) return 'Thực phẩm'
     if (isWorkoutPage) return 'Bài tập'
     if (isUserPage) return 'Người dùng'
+    if (isBadgesPage) return 'Huy hiệu'
     return ''
   }
 
@@ -81,6 +84,15 @@ function MainPage() {
               >
                 <span className="menu-icon">👥</span>
                 Quản lí người dùng
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/home/badges"
+                className={({ isActive }) => `menu-item menu-link${isActive ? ' active' : ''}`}
+              >
+                <span className="menu-icon">🏅</span>
+                Quản lý huy hiệu
               </NavLink>
             </li>
           </ul>
