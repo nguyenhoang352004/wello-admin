@@ -3,7 +3,6 @@ import { stateActionButtonLabel } from '../userSegmentationData'
 
 type UserSegmentTableProps = {
   rows: SegmentedUser[]
-  stateTitle: Record<UserState, string>
   stateAction: Record<UserState, string>
   performedActions: Record<number, boolean>
   onPerformAction: (id: number, state: UserState, name: string) => void
@@ -11,7 +10,6 @@ type UserSegmentTableProps = {
 
 function UserSegmentTable({
   rows,
-  stateTitle,
   stateAction,
   performedActions,
   onPerformAction,

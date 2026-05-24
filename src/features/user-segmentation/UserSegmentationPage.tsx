@@ -177,7 +177,6 @@ function UserSegmentationPage() {
                 ) : (
                   <UserSegmentTable
                     rows={tableUsers}
-                    stateTitle={stateTitle}
                     stateAction={stateAction}
                     performedActions={performedActions}
                     onPerformAction={handlePerformIndividualAction}
