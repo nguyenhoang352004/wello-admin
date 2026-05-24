@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Badge, badgeService, BadgeCreateRequest } from '../../core/api/badgeService'
+import { badgeService } from '../../core/api/badgeService'
+import type { Badge, BadgeCreateRequest } from '../../core/api/badgeService'
 import BadgeModal from './components/BadgeModal'
 import './BadgeManagementPage.css'
 

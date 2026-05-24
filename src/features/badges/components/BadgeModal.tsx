@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Badge, BadgeCreateRequest } from '../../../core/api/badgeService'
+import type { Badge, BadgeCreateRequest } from '../../../core/api/badgeService'
 import './BadgeModal.css'
 
 interface BadgeModalProps {

@@ -3,11 +3,11 @@ export type ReviewStatus = 'PENDING' | 'APPROVED' | 'REJECTED'
 export interface Requester {
   idUser: number
   email: string
-  role: string
-  createdAt: string
-  lastActivityAt: string
-  googleId: string | null
-  authProvider: string
+  role?: string
+  createdAt?: string
+  lastActivityAt?: string
+  googleId?: string | null
+  authProvider?: string
 }
 
 export interface FoodContribution {
