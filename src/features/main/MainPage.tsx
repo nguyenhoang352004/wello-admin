@@ -83,7 +83,7 @@ function MainPage() {
                 className={({ isActive }) => `menu-item menu-link${isActive ? ' active' : ''}`}
               >
                 <span className="menu-icon">👥</span>
-                Quản lí người dùng
+                Quản lý người dùng
               </NavLink>
             </li>
             <li>

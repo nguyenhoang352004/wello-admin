@@ -45,6 +45,27 @@ const PRESET_ICONS = [
   { url: 'https://cdn-icons-png.flaticon.com/512/3652/3652191.png', label: 'Vương miện' },
 ]
 
+const formatCriteria = (type: string, value: number) => {
+  switch (type) {
+    case 'WATER_INTAKE':
+      return `💧 Uống nước: ${value} ml`
+    case 'STREAK':
+      return `🔥 Chuỗi ngày hoạt động: ${value} ngày`
+    case 'NUTRITION_LOG':
+      return `🥗 Ghi nhật ký ăn uống: ${value} lần`
+    case 'WORKOUT_CALORIES':
+      return `💪 Đốt calo tập luyện: ${value} kcal`
+    case 'SURVEY_COMPLETED':
+      return `📋 Hoàn thành khảo sát: ${value} lần`
+    case 'CHALLENGE_COMPLETED':
+      return `🏆 Hoàn thành thử thách: ${value} lần`
+    case 'COMMUNITY_POST':
+      return `👥 Đăng bài cộng đồng: ${value} lần`
+    default:
+      return `${type}: ${value}`
+  }
+}
+
 const BadgeModal: React.FC<BadgeModalProps> = ({ isOpen, onClose, onSave, initialData }) => {
   const [formData, setFormData] = useState<BadgeCreateRequest>({
     name: '',
@@ -111,88 +132,116 @@ const BadgeModal: React.FC<BadgeModalProps> = ({ isOpen, onClose, onSave, initia
           </button>
         </div>
         <form onSubmit={handleSubmit}>
-          <div className="modal-body">
-            <div className="form-group">
-              <label htmlFor="name">Tên huy hiệu</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                className="form-control"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                placeholder="Ví dụ: Cá Voi Xanh"
-              />
-            </div>
-            
-            <div className="form-group">
-              <label htmlFor="description">Mô tả</label>
-              <textarea
-                id="description"
-                name="description"
-                className="form-control"
-                value={formData.description}
-                onChange={handleChange}
-                required
-                placeholder="Cách để đạt được huy hiệu..."
-              />
-            </div>
-            
-            <div className="form-group">
-              <label>Chọn icon huy hiệu</label>
-              <div className="icon-picker-grid">
-                {PRESET_ICONS.map((icon) => (
-                  <button
-                    type="button"
-                    key={icon.url}
-                    className={`icon-picker-item ${formData.imageUrl === icon.url ? 'selected' : ''}`}
-                    onClick={() => setFormData((prev) => ({ ...prev, imageUrl: icon.url }))}
-                    title={icon.label}
-                  >
-                    <img src={icon.url} alt={icon.label} onError={(e) => (e.currentTarget.style.display = 'none')} />
-                    <span>{icon.label}</span>
-                  </button>
-                ))}
+          <div className="modal-body badge-modal-grid">
+            {/* Left Column: Form Details */}
+            <div className="modal-col-left">
+              <div className="form-group">
+                <label htmlFor="name">Tên huy hiệu</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  className="form-control"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  placeholder="Ví dụ: Cá Voi Xanh"
+                />
               </div>
-              {formData.imageUrl && (
-                <div className="icon-selected-preview">
-                  <img src={formData.imageUrl} alt="Selected" />
-                  <span>Đã chọn</span>
+              
+              <div className="form-group">
+                <label htmlFor="description">Mô tả</label>
+                <textarea
+                  id="description"
+                  name="description"
+                  className="form-control"
+                  value={formData.description}
+                  onChange={handleChange}
+                  required
+                  placeholder="Cách để đạt được huy hiệu..."
+                  rows={4}
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="criteriaType">Loại điều kiện</label>
+                <select
+                  id="criteriaType"
+                  name="criteriaType"
+                  className="form-control"
+                  value={formData.criteriaType}
+                  onChange={handleChange}
+                >
+                  {CRITERIA_TYPES.map((type) => (
+                    <option key={type.value} value={type.value}>
+                      {type.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="criteriaValue">Mốc giá trị</label>
+                <input
+                  type="number"
+                  id="criteriaValue"
+                  name="criteriaValue"
+                  className="form-control"
+                  value={formData.criteriaValue}
+                  onChange={handleChange}
+                  required
+                  min="0"
+                  step="any"
+                />
+              </div>
+            </div>
+
+            {/* Right Column: Icon Picker & Real-time Preview */}
+            <div className="modal-col-right">
+              <label className="form-label-section">Xem trước hiển thị</label>
+              <div className="badge-live-preview">
+                <div className="badge-card-preview">
+                  <div className="badge-icon-container-preview">
+                    <img 
+                      src={formData.imageUrl || 'https://cdn-icons-png.flaticon.com/512/1071/1071064.png'} 
+                      alt="Preview" 
+                      className="badge-icon-preview"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = 'https://cdn-icons-png.flaticon.com/512/1071/1071064.png'
+                      }}
+                    />
+                  </div>
+                  <div className="badge-info-preview">
+                    <h3 className="badge-name-preview">{formData.name || 'Tên huy hiệu'}</h3>
+                    <div className="badge-criteria-preview">
+                      {formatCriteria(formData.criteriaType, formData.criteriaValue)}
+                    </div>
+                    <p className="badge-desc-preview">{formData.description || 'Mô tả điều kiện đạt được...'}</p>
+                  </div>
                 </div>
-              )}
-            </div>
+              </div>
 
-            <div className="form-group">
-              <label htmlFor="criteriaType">Loại điều kiện</label>
-              <select
-                id="criteriaType"
-                name="criteriaType"
-                className="form-control"
-                value={formData.criteriaType}
-                onChange={handleChange}
-              >
-                {CRITERIA_TYPES.map((type) => (
-                  <option key={type.value} value={type.value}>
-                    {type.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="criteriaValue">Mốc giá trị</label>
-              <input
-                type="number"
-                id="criteriaValue"
-                name="criteriaValue"
-                className="form-control"
-                value={formData.criteriaValue}
-                onChange={handleChange}
-                required
-                min="0"
-                step="any"
-              />
+              <div className="form-group">
+                <label className="form-label-section" style={{ marginTop: '12px' }}>Chọn biểu tượng</label>
+                <div className="icon-picker-grid">
+                  {PRESET_ICONS.map((icon) => (
+                    <button
+                      type="button"
+                      key={icon.url}
+                      className={`icon-picker-item ${formData.imageUrl === icon.url ? 'selected' : ''}`}
+                      onClick={() => setFormData((prev) => ({ ...prev, imageUrl: icon.url }))}
+                      title={icon.label}
+                    >
+                      <img 
+                        src={icon.url} 
+                        alt={icon.label} 
+                        onError={(e) => (e.currentTarget.style.display = 'none')} 
+                      />
+                      <span>{icon.label}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
           <div className="modal-footer">

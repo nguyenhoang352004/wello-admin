@@ -42,7 +42,7 @@ function SegmentSummaryGrid({ stats, stateTitle, stateAction, onNotify, loadingA
           onClick={() => onNotify('active')}
           disabled={loadingAction.active || stats.active === 0}
         >
-          {loadingAction.active ? 'Đang gửi...' : 'Gửi chiến dịch'}
+          {loadingAction.active ? 'Đang gửi...' : 'Gửi thông báo'}
         </button>
       </article>
 
@@ -55,7 +55,7 @@ function SegmentSummaryGrid({ stats, stateTitle, stateAction, onNotify, loadingA
           onClick={() => onNotify('at-risk')}
           disabled={loadingAction['at-risk'] || stats['at-risk'] === 0}
         >
-          {loadingAction['at-risk'] ? 'Đang gửi...' : 'Gửi chiến dịch'}
+          {loadingAction['at-risk'] ? 'Đang gửi...' : 'Gửi thông báo'}
         </button>
       </article>
 
@@ -68,7 +68,7 @@ function SegmentSummaryGrid({ stats, stateTitle, stateAction, onNotify, loadingA
           onClick={() => onNotify('lapsed')}
           disabled={loadingAction.lapsed || stats.lapsed === 0}
         >
-          {loadingAction.lapsed ? 'Đang gửi...' : 'Gửi chiến dịch'}
+          {loadingAction.lapsed ? 'Đang gửi...' : 'Gửi thông báo'}
         </button>
       </article>
 
@@ -81,7 +81,7 @@ function SegmentSummaryGrid({ stats, stateTitle, stateAction, onNotify, loadingA
           onClick={() => onNotify('churned')}
           disabled={loadingAction.churned || stats.churned === 0}
         >
-          {loadingAction.churned ? 'Đang gửi...' : 'Gửi chiến dịch'}
+          {loadingAction.churned ? 'Đang gửi...' : 'Gửi email'}
         </button>
       </article>
     </div>

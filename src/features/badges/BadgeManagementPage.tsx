@@ -3,6 +3,29 @@ import { badgeService } from '../../core/api/badgeService'
 import type { Badge, BadgeCreateRequest } from '../../core/api/badgeService'
 import BadgeModal from './components/BadgeModal'
 import './BadgeManagementPage.css'
+import LoadingSpinner from '../../shared/components/LoadingSpinner'
+
+
+const formatCriteria = (type: string, value: number) => {
+  switch (type) {
+    case 'WATER_INTAKE':
+      return `💧 Uống nước: ${value} ml`
+    case 'STREAK':
+      return `🔥 Chuỗi ngày hoạt động: ${value} ngày`
+    case 'NUTRITION_LOG':
+      return `🥗 Ghi nhật ký ăn uống: ${value} lần`
+    case 'WORKOUT_CALORIES':
+      return `💪 Đốt calo tập luyện: ${value} kcal`
+    case 'SURVEY_COMPLETED':
+      return `📋 Hoàn thành khảo sát: ${value} lần`
+    case 'CHALLENGE_COMPLETED':
+      return `🏆 Hoàn thành thử thách: ${value} lần`
+    case 'COMMUNITY_POST':
+      return `👥 Đăng bài cộng đồng: ${value} lần`
+    default:
+      return `${type}: ${value}`
+  }
+}
 
 const BadgeManagementPage: React.FC = () => {
   const [badges, setBadges] = useState<Badge[]>([])
@@ -69,10 +92,7 @@ const BadgeManagementPage: React.FC = () => {
   if (loading && badges.length === 0) {
     return (
       <div className="badge-management-page">
-        <div className="loading-container">
-          <div className="loading-spinner"></div>
-          <p>Đang tải danh sách huy hiệu...</p>
-        </div>
+        <LoadingSpinner message="Đang tải danh sách huy hiệu..." />
       </div>
     )
   }
@@ -119,7 +139,7 @@ const BadgeManagementPage: React.FC = () => {
               <div className="badge-info">
                 <h3 className="badge-name">{badge.name}</h3>
                 <div className="badge-criteria">
-                  {badge.criteriaType} : {badge.criteriaValue}
+                  {formatCriteria(badge.criteriaType, badge.criteriaValue)}
                 </div>
                 <p className="badge-desc">{badge.description}</p>
               </div>

@@ -1,5 +1,17 @@
 .user-seg-card {
   border: 1px solid rgba(53, 94, 105, 0.1);
+  animation: card-in 420ms ease-out both;
+}
+
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .user-seg-body {
@@ -389,3 +401,54 @@
     min-width: 600px;
   }
 }
+
+/* Spinner Loader and Smooth Loading */
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.72);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  backdrop-filter: blur(0px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease-out, backdrop-filter 0.15s ease-out;
+}
+
+.loading-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+  backdrop-filter: blur(2px);
+  transition: opacity 0.4s ease-in, backdrop-filter 0.4s ease-in;
+  transition-delay: 0.18s;
+}
+
+.spinner-loader {
+  width: 36px;
+  height: 36px;
+  border: 3.5px solid #e2e8f0;
+  border-top-color: #2f8ca6;
+  border-radius: 50%;
+  animation: spin-loading 0.8s linear infinite;
+}
+
+.loading-text {
+  color: #2e5560;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-top: 0.65rem;
+}
+
+@keyframes spin-loading {
+  to {
+    transform: rotate(360deg);
+  }
+}
+

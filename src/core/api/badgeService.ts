@@ -22,21 +22,47 @@ const BADGE_BASE = '/admin/badges'
 
 export const badgeService = {
   getAllBadges: async (): Promise<Badge[]> => {
-    const response = await axiosInstance.get<Badge[]>(BADGE_BASE)
-    return response.data
+    const response = await axiosInstance.get<any[]>(BADGE_BASE)
+    return response.data.map(mapToBadge)
   },
 
   createBadge: async (data: BadgeCreateRequest): Promise<Badge> => {
-    const response = await axiosInstance.post<Badge>(BADGE_BASE, data)
-    return response.data
+    const payload = {
+      name: data.name,
+      description: data.description,
+      imageUrl: data.imageUrl,
+      criteriaType: data.criteriaType,
+      criteriaValue: data.criteriaValue
+    }
+    const response = await axiosInstance.post<any>(BADGE_BASE, payload)
+    return mapToBadge(response.data)
   },
 
   updateBadge: async (id: number, data: BadgeCreateRequest): Promise<Badge> => {
-    const response = await axiosInstance.put<Badge>(`${BADGE_BASE}/${id}`, data)
-    return response.data
+    const payload = {
+      idBadge: id,
+      name: data.name,
+      description: data.description,
+      imageUrl: data.imageUrl,
+      criteriaType: data.criteriaType,
+      criteriaValue: data.criteriaValue
+    }
+    const response = await axiosInstance.put<any>(`${BADGE_BASE}/${id}`, payload)
+    return mapToBadge(response.data)
   },
 
   deleteBadge: async (id: number): Promise<void> => {
     await axiosInstance.delete(`${BADGE_BASE}/${id}`)
   },
+}
+
+function mapToBadge(data: any): Badge {
+  return {
+    id: data.badgeId,
+    name: data.name,
+    description: data.description,
+    imageUrl: data.iconUrl,
+    criteriaType: data.criteriaType,
+    criteriaValue: data.criteriaValue,
+  }
 }

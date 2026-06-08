@@ -8,6 +8,8 @@ import { statusLabel } from './foodModerationData'
 import type { FilterValue, FoodContribution, ReviewStatus } from './types'
 
 import ModerationNoteModal from './components/ModerationNoteModal'
+import LoadingSpinner from '../../shared/components/LoadingSpinner'
+
 
 function FoodModerationPage() {
   const [items, setItems] = useState<FoodContribution[]>([])
@@ -94,7 +96,7 @@ function FoodModerationPage() {
         />
 
         {isLoading ? (
-          <div className="moderation-loading">Đang tải dữ liệu...</div>
+          <LoadingSpinner message="Đang tải danh sách thực phẩm..." minHeight="200px" />
         ) : (
           <>
             <FoodModerationTable items={filteredItems} onUpdateStatus={handleActionClick} />
