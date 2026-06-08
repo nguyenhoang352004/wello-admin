@@ -164,14 +164,16 @@ function UserSegmentationPage() {
                     stats={stats}
                     stateTitle={stateTitle}
                   />
-                  <button 
-                    className="btn-add" 
-                    style={{ backgroundColor: '#3b82f6', color: '#fff', padding: '10px 20px', borderRadius: '8px', fontWeight: '600', boxShadow: '0 4px 6px -1px rgb(59 130 246 / 0.5)' }}
-                    onClick={() => handleNotifyGroup(activeTab)}
-                    disabled={loadingAction[activeTab] || stats[activeTab] === 0}
-                  >
-                    {loadingAction[activeTab] ? 'Đang gửi...' : activeTab === 'churned' ? 'Gửi email toàn bộ nhóm' : 'Gửi thông báo toàn bộ nhóm'}
-                  </button>
+                  {activeTab !== 'active' && (
+                    <button 
+                      className="btn-add" 
+                      style={{ backgroundColor: '#3b82f6', color: '#fff', padding: '10px 20px', borderRadius: '8px', fontWeight: '600', boxShadow: '0 4px 6px -1px rgb(59 130 246 / 0.5)' }}
+                      onClick={() => handleNotifyGroup(activeTab)}
+                      disabled={loadingAction[activeTab] || stats[activeTab] === 0}
+                    >
+                      {loadingAction[activeTab] ? 'Đang gửi...' : activeTab === 'churned' ? 'Gửi email toàn bộ nhóm' : 'Gửi thông báo toàn bộ nhóm'}
+                    </button>
+                  )}
                 </div>
                 
                 <div style={{ position: 'relative', minHeight: '200px', width: '100%' }}>

@@ -37,15 +37,19 @@ function UserSegmentTable({
                 <p className="segment-row-action-text" style={{ margin: 0 }}>{stateAction[user.state]}</p>
               </td>
               <td className="segment-exec-cell" style={{ padding: '16px', textAlign: 'center' }}>
-                <button
-                  type="button"
-                  className={`segment-action-btn segment-action-btn--${user.state}`}
-                  style={{ padding: '8px 16px', borderRadius: '8px', border: 'none', cursor: performedActions[user.id] ? 'not-allowed' : 'pointer', opacity: performedActions[user.id] ? 0.6 : 1, fontWeight: '500' }}
-                  onClick={() => onPerformAction(user.id, user.state, user.name)}
-                  disabled={performedActions[user.id]}
-                >
-                  {performedActions[user.id] ? 'Đã gửi' : `${stateActionButtonLabel[user.state]}`}
-                </button>
+                {user.state === 'active' ? (
+                  <span style={{ color: '#94a3b8', fontSize: '18px', fontWeight: 'bold' }}>—</span>
+                ) : (
+                  <button
+                    type="button"
+                    className={`segment-action-btn segment-action-btn--${user.state}`}
+                    style={{ padding: '8px 16px', borderRadius: '8px', border: 'none', cursor: performedActions[user.id] ? 'not-allowed' : 'pointer', opacity: performedActions[user.id] ? 0.6 : 1, fontWeight: '500' }}
+                    onClick={() => onPerformAction(user.id, user.state, user.name)}
+                    disabled={performedActions[user.id]}
+                  >
+                    {performedActions[user.id] ? 'Đã gửi' : `${stateActionButtonLabel[user.state]}`}
+                  </button>
+                )}
               </td>
             </tr>
           ))}

@@ -37,13 +37,6 @@ function SegmentSummaryGrid({ stats, stateTitle, stateAction, onNotify, loadingA
         <p className="segment-name" style={{ fontSize: '16px', fontWeight: 'bold', color: '#059669', margin: 0 }}>{stateTitle.active}</p>
         <p className="segment-count" style={{ fontSize: '24px', margin: '8px 0', color: '#10b981', fontWeight: 'bold' }}>{stats.active} <span style={{ fontSize: '14px', color: '#64748b', fontWeight: 'normal' }}>người dùng</span></p>
         <p className="segment-action" style={{ fontSize: '13px', color: '#475569', marginBottom: '20px' }}>{stateAction.active}</p>
-        <button 
-          style={{ ...btnStyle, backgroundColor: '#10b981', opacity: (loadingAction.active || stats.active === 0) ? 0.6 : 1, cursor: (loadingAction.active || stats.active === 0) ? 'not-allowed' : 'pointer' }}
-          onClick={() => onNotify('active')}
-          disabled={loadingAction.active || stats.active === 0}
-        >
-          {loadingAction.active ? 'Đang gửi...' : 'Gửi thông báo'}
-        </button>
       </article>
 
       <article className="segment-item segment-item--risk" style={{ ...cardStyle, border: '1px solid #f59e0b20', boxShadow: '0 4px 12px #f59e0b10' }}>
