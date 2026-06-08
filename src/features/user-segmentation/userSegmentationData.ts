@@ -25,7 +25,7 @@ export const stateTitle: Record<UserState, string> = {
 }
 
 export const stateAction: Record<UserState, string> = {
-  active: 'Khen ngợi & Tặng huy hiệu',
+  active: '—',
   'at-risk': 'Nhắc nhở nhẹ nhàng',
   lapsed: 'Gửi mẹo truyền cảm hứng',
   churned: 'Khảo sát & Tặng lộ trình',

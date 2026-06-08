@@ -17,6 +17,8 @@ import {
 import { dashboardService } from '../../core/api/dashboardService'
 import type { DashboardSummary, GrowthData, PieData } from '../../core/api/dashboardService'
 import './DashboardPage.css'
+import LoadingSpinner from '../../shared/components/LoadingSpinner'
+
 
 // Helper to get colors for Moderation Stats
 const getModerationColor = (name: string) => {
@@ -79,8 +81,8 @@ function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="dashboard-content dashboard-loading">
-        <div className="loading-spinner">Đang tải dữ liệu...</div>
+      <div className="dashboard-content dashboard-loading" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '80vh' }}>
+        <LoadingSpinner message="Đang tải dữ liệu tổng quan..." />
       </div>
     )
   }

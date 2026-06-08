@@ -37,13 +37,6 @@ function SegmentSummaryGrid({ stats, stateTitle, stateAction, onNotify, loadingA
         <p className="segment-name" style={{ fontSize: '16px', fontWeight: 'bold', color: '#059669', margin: 0 }}>{stateTitle.active}</p>
         <p className="segment-count" style={{ fontSize: '24px', margin: '8px 0', color: '#10b981', fontWeight: 'bold' }}>{stats.active} <span style={{ fontSize: '14px', color: '#64748b', fontWeight: 'normal' }}>người dùng</span></p>
         <p className="segment-action" style={{ fontSize: '13px', color: '#475569', marginBottom: '20px' }}>{stateAction.active}</p>
-        <button 
-          style={{ ...btnStyle, backgroundColor: '#10b981', opacity: (loadingAction.active || stats.active === 0) ? 0.6 : 1, cursor: (loadingAction.active || stats.active === 0) ? 'not-allowed' : 'pointer' }}
-          onClick={() => onNotify('active')}
-          disabled={loadingAction.active || stats.active === 0}
-        >
-          {loadingAction.active ? 'Đang gửi...' : 'Gửi chiến dịch'}
-        </button>
       </article>
 
       <article className="segment-item segment-item--risk" style={{ ...cardStyle, border: '1px solid #f59e0b20', boxShadow: '0 4px 12px #f59e0b10' }}>
@@ -55,7 +48,7 @@ function SegmentSummaryGrid({ stats, stateTitle, stateAction, onNotify, loadingA
           onClick={() => onNotify('at-risk')}
           disabled={loadingAction['at-risk'] || stats['at-risk'] === 0}
         >
-          {loadingAction['at-risk'] ? 'Đang gửi...' : 'Gửi chiến dịch'}
+          {loadingAction['at-risk'] ? 'Đang gửi...' : 'Gửi thông báo'}
         </button>
       </article>
 
@@ -68,7 +61,7 @@ function SegmentSummaryGrid({ stats, stateTitle, stateAction, onNotify, loadingA
           onClick={() => onNotify('lapsed')}
           disabled={loadingAction.lapsed || stats.lapsed === 0}
         >
-          {loadingAction.lapsed ? 'Đang gửi...' : 'Gửi chiến dịch'}
+          {loadingAction.lapsed ? 'Đang gửi...' : 'Gửi thông báo'}
         </button>
       </article>
 
@@ -81,7 +74,7 @@ function SegmentSummaryGrid({ stats, stateTitle, stateAction, onNotify, loadingA
           onClick={() => onNotify('churned')}
           disabled={loadingAction.churned || stats.churned === 0}
         >
-          {loadingAction.churned ? 'Đang gửi...' : 'Gửi chiến dịch'}
+          {loadingAction.churned ? 'Đang gửi...' : 'Gửi email'}
         </button>
       </article>
     </div>

@@ -7,6 +7,8 @@ import WorkoutModerationTable from './components/WorkoutModerationTable'
 import ModerationToolbar from '../food-moderation/components/ModerationToolbar'
 
 import ModerationNoteModal from '../food-moderation/components/ModerationNoteModal'
+import LoadingSpinner from '../../shared/components/LoadingSpinner'
+
 
 function WorkoutModerationPage() {
   const [items, setItems] = useState<WorkoutContribution[]>([])
@@ -99,7 +101,7 @@ function WorkoutModerationPage() {
         />
 
         {isLoading ? (
-          <div className="moderation-loading">Đang tải dữ liệu...</div>
+          <LoadingSpinner message="Đang tải danh sách bài tập..." minHeight="200px" />
         ) : (
           <>
             <WorkoutModerationTable items={filteredItems} onUpdateStatus={handleActionClick} />

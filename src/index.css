@@ -25,3 +25,39 @@ h2,
 h3 {
   font-family: 'Baloo 2', 'Trebuchet MS', sans-serif;
 }
+
+/* Global Loading Spinner styles */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 250px;
+  width: 100%;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.loading-spinner {
+  width: 44px;
+  height: 44px;
+  border: 4px solid #e2e8f0;
+  border-top-color: #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1.25rem;
+}
+
+.loading-text {
+  color: #64748b;
+  font-weight: 500;
+  font-size: 1rem;
+  margin: 0;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+

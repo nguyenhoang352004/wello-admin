@@ -6,6 +6,8 @@ import UserSegmentTable from './components/UserSegmentTable'
 import type { UserState, SegmentedUser } from './types'
 import { stateTitle, stateAction } from './userSegmentationData'
 import { engagementService } from '../../core/api/engagementService'
+import LoadingSpinner from '../../shared/components/LoadingSpinner'
+
 
 function UserSegmentationPage() {
   const [stats, setStats] = useState<Record<UserState, number>>({
@@ -101,7 +103,7 @@ function UserSegmentationPage() {
       }
     } catch (err) {
       console.error('Error notifying group:', err)
-      alert('Có lỗi xảy ra khi gửi chiến dịch.')
+      alert('Có lỗi xảy ra khi gửi.')
     } finally {
       setLoadingAction(prev => ({ ...prev, [state]: false }))
     }
@@ -134,7 +136,7 @@ function UserSegmentationPage() {
       <div className="content-card-header" style={{ marginBottom: '24px' }}>
         <div>
           <h2 className="content-card-title" style={{ fontSize: '24px', fontWeight: 'bold', color: '#1e293b', margin: 0 }}>Phân loại & Gắn kết người dùng</h2>
-          <p style={{ color: '#64748b', marginTop: '8px' }}>Quản lý và thực hiện chiến dịch cho các nhóm người dùng khác nhau</p>
+          <p style={{ color: '#64748b', marginTop: '8px' }}>Quản lý và tương tác với các nhóm người dùng thông qua thông báo và email</p>
         </div>
       </div>
 
@@ -142,7 +144,7 @@ function UserSegmentationPage() {
         {error && <div className="error-message" style={{ color: '#dc2626', backgroundColor: '#fef2f2', padding: '12px', borderRadius: '8px', marginBottom: '16px', border: '1px solid #fecaca' }}>{error}</div>}
         
         {loading && !error ? (
-          <div className="loading-spinner" style={{ textAlign: 'center', padding: '40px', color: '#64748b', fontSize: '16px' }}>Đang tải dữ liệu người dùng...</div>
+          <LoadingSpinner message="Đang tải dữ liệu phân loại người dùng..." />
         ) : (
           <>
             <SegmentSummaryGrid 
@@ -162,26 +164,37 @@ function UserSegmentationPage() {
                     stats={stats}
                     stateTitle={stateTitle}
                   />
-                  <button 
-                    className="btn-add" 
-                    style={{ backgroundColor: '#3b82f6', color: '#fff', padding: '10px 20px', borderRadius: '8px', fontWeight: '600', boxShadow: '0 4px 6px -1px rgb(59 130 246 / 0.5)' }}
-                    onClick={() => handleNotifyGroup(activeTab)}
-                    disabled={loadingAction[activeTab] || stats[activeTab] === 0}
-                  >
-                    {loadingAction[activeTab] ? 'Đang gửi...' : `Gửi chiến dịch toàn bộ nhóm`}
-                  </button>
+                  {activeTab !== 'active' && (
+                    <button 
+                      className="btn-add" 
+                      style={{ backgroundColor: '#3b82f6', color: '#fff', padding: '10px 20px', borderRadius: '8px', fontWeight: '600', boxShadow: '0 4px 6px -1px rgb(59 130 246 / 0.5)' }}
+                      onClick={() => handleNotifyGroup(activeTab)}
+                      disabled={loadingAction[activeTab] || stats[activeTab] === 0}
+                    >
+                      {loadingAction[activeTab] ? 'Đang gửi...' : activeTab === 'churned' ? 'Gửi email toàn bộ nhóm' : 'Gửi thông báo toàn bộ nhóm'}
+                    </button>
+                  )}
                 </div>
                 
-                {loadingTable ? (
-                  <div style={{ textAlign: 'center', padding: '60px', color: '#64748b', fontSize: '16px', backgroundColor: '#fff', borderRadius: '12px', border: '1px dashed #cbd5e1' }}>Đang tải danh sách...</div>
-                ) : (
-                  <UserSegmentTable
-                    rows={tableUsers}
-                    stateAction={stateAction}
-                    performedActions={performedActions}
-                    onPerformAction={handlePerformIndividualAction}
-                  />
-                )}
+                <div style={{ position: 'relative', minHeight: '200px', width: '100%' }}>
+                  <div className={`loading-overlay ${loadingTable ? 'active' : ''}`}>
+                    <div className="spinner-loader"></div>
+                    <span className="loading-text">Đang tải danh sách...</span>
+                  </div>
+                  <div style={{
+                    opacity: loadingTable ? 0.45 : 1,
+                    pointerEvents: loadingTable ? 'none' : 'auto',
+                    transition: loadingTable ? 'opacity 0.4s ease-in' : 'opacity 0.15s ease-out',
+                    transitionDelay: loadingTable ? '0.18s' : '0s'
+                  }}>
+                    <UserSegmentTable
+                      rows={tableUsers}
+                      stateAction={stateAction}
+                      performedActions={performedActions}
+                      onPerformAction={handlePerformIndividualAction}
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </>
